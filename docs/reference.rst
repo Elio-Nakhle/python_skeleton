@@ -9,5 +9,5 @@ Reference
 project_name.console
 --------------------------
 
-.. automodule:: project_name.console
+.. automodule:: python_skeleton.project_name.console
    :members:
