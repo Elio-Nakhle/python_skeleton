@@ -1,3 +1,6 @@
 .pytest_cache
 .tox
 .coverage
+test-project-venv/
+.idea/
+__pycache__/

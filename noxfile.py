@@ -2,9 +2,10 @@
 import nox
 
 locations = "python_skeleton", "tests", "noxfile.py", "docs/conf.py"
+python_versions = ["3.10"]
 
 
-@nox.session(python=["3.10"])
+@nox.session(python=python_versions)
 def mypy(session):
     """Type-check using mypy."""
     args = session.posargs or locations
@@ -12,7 +13,7 @@ def mypy(session):
     session.run("mypy", *args)
 
 
-@nox.session(python=["3.10"])
+@nox.session(python=python_versions)
 def lint(session):
     """Lint using flake8."""
     args = session.posargs or locations
@@ -29,7 +30,7 @@ def lint(session):
     session.run("flake8", *args)
 
 
-@nox.session(python="3.10")
+@nox.session(python=python_versions)
 def black(session):
     """Run black code formatter."""
     args = session.posargs or locations
@@ -37,7 +38,7 @@ def black(session):
     session.run("black", *args)
 
 
-@nox.session(python="3.10")
+@nox.session(python=python_versions)
 def isort(session):
     """Run black code formatter."""
     args = session.posargs or locations
@@ -45,7 +46,7 @@ def isort(session):
     session.run("isort", *args)
 
 
-@nox.session(python="3.10")
+@nox.session(python=python_versions)
 def docs(session):
     """Build the documentation."""
     session.run("poetry", "install", "--no-dev", external=True)
@@ -53,7 +54,7 @@ def docs(session):
     session.run("sphinx-build", "docs", "docs/_build")
 
 
-@nox.session(python="3.10")
+@nox.session(python=python_versions)
 def coverage(session):
     """Upload coverage data."""
     session.install("coverage[toml]", "codecov")
@@ -61,7 +62,7 @@ def coverage(session):
     session.run("codecov", *session.posargs)
 
 
-@nox.session(python="3.10")
+@nox.session(python=python_versions)
 def tests(session):
     """Runs the unit tests for this project."""
     args = session.posargs or ["--cov", "-m", "not e2e"]
