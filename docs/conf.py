@@ -1,8 +1,8 @@
 """Sphinx configuration."""
 project = "project-template"
 author = "Elio Nakhle"
-copyright = f"2022, {author}"
-html_theme = "classic"
+copyright = f"2023, {author}"
+html_theme = "sphinx_rtd_theme"
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
