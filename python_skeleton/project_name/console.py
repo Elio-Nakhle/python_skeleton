@@ -9,3 +9,4 @@ from . import __version__
 def main() -> None:
     """Command line interface."""
     click.echo("Hello Template Project!")
+    print("Hello!")

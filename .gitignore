@@ -9,3 +9,4 @@ test-project-venv/
 __pycache__/
 docs/_build
 coverage.xml
+.pdm-python

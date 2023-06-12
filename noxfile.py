@@ -1,19 +1,24 @@
 """Nox sessions."""
-# import os
-# import pathlib
-# import shutil
+
+import os
+import pathlib
 
 import nox
 
+repository_root_directory = pathlib.Path(__file__).parent.resolve()
 locations = "python_skeleton", "tests", "noxfile.py", "docs/conf.py"
 python_versions = ["3.10"]
 
 
+# Needed to use pdm with nox sessions
+os.environ.update({"PDM_IGNORE_SAVED_PYTHON": "1"})
+
+
 @nox.session(python=python_versions)
-def mypy(session):
+def check_type_hint_annotations(session):
     """Type-check using mypy."""
     session.install("mypy")
-    session.run("mypy", "python_skeleton")
+    session.run("mypy", "-p", "python_skeleton")
 
 
 @nox.session(python=python_versions)
@@ -51,7 +56,6 @@ def isort(session):
 @nox.session(python=python_versions)
 def docs(session):
     """Build the documentation."""
-    session.run("poetry", "install", "--no-dev", external=True)
     session.install("sphinx", "sphinx-autodoc-typehints", "sphinx_rtd_theme")
     session.run("sphinx-build", "docs", "docs/_build")
 
@@ -65,29 +69,19 @@ def coverage(session):
 
 
 @nox.session(python=python_versions)
+def coverage_badge(session, coverage_badge_file_name=".coverage.svg"):
+    """Generate a .svg coverage badge from the coverage reports."""
+    session.install("coverage[toml]", "coverage-badge")
+    coverage_badge_path = str(repository_root_directory / coverage_badge_file_name)
+    if os.path.exists(coverage_badge_path):
+        os.remove(coverage_badge_path)
+    session.run("coverage-badge", "-o", coverage_badge_file_name)
+
+
+@nox.session(python=python_versions)
 def tests(session):
     """Runs the unit tests for this project."""
     args = session.posargs or ["--cov", "-m", "not e2e"]
-    session.run("poetry", "install", "--no-dev", external=True)
+    session.run("pdm", "install", external=True)
     session.install("coverage[toml]", "pytest", "pytest-cov", "pytest-mock")
     session.run("pytest", *args)
-
-
-# TODO: find a way to exclude this from poetry run nox
-# @nox.session(python=python_versions)
-# def clean(session):
-#     """Remove generated files."""
-#     print(f"Running nox session: {session.name}")
-#     root_directory = str(pathlib.Path(__file__).parent.resolve()) + "/"
-#     print(f"Cleaning up specified files in: {root_directory}")
-#     files_to_remove = [".coverage", "coverage.xml"]
-#     files_to_remove = [root_directory + file for file in files_to_remove]
-#     [os.remove(file) for file in files_to_remove if os.path.isfile(file)]
-#
-#     directories_to_remove = ["docs/_build", ".mypy_cache", ".nox", ".pytest_cache", ".venv"]
-#     directories_to_remove = [root_directory + directory for directory in directories_to_remove]
-#     [
-#         shutil.rmtree(directory, ignore_errors=True)
-#         for directory in directories_to_remove
-#         if os.path.isdir(directory)
-#     ]
