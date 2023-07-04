@@ -82,6 +82,6 @@ def coverage_badge(session, coverage_badge_file_name=".coverage.svg"):
 def tests(session):
     """Runs the unit tests for this project."""
     args = session.posargs or ["--cov", "-m", "not e2e"]
-    session.run("pdm", "install", external=True)
+    session.run("pdm", "install", "G", "test", external=True)
     session.install("coverage[toml]", "pytest", "pytest-cov", "pytest-mock")
     session.run("pytest", *args)
