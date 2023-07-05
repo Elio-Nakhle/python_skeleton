@@ -2,7 +2,7 @@
 project = "project-template"
 author = "Elio Nakhle"
 copyright = f"2023, {author}"
-html_theme = "sphinx_rtd_theme"
+html_theme = "classic"
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",

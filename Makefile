@@ -9,3 +9,4 @@ clean:
 	rm -rf .nox || true
 	rm -rf .pytest_cache || true
 	rm -rf .venv || true
+	rm .coverage.svg || true
