@@ -1,7 +1,7 @@
 """Defines the command line interface of the project."""
 import click
 
-from . import __version__
+from python_skeleton.project_name import __version__
 
 
 @click.command()
@@ -9,4 +9,3 @@ from . import __version__
 def main() -> None:
     """Command line interface."""
     click.echo("Hello Template Project!")
-    print("Hello!")

@@ -2,6 +2,6 @@
 from importlib.metadata import PackageNotFoundError, version
 
 try:
-    __version__ = version(__name__)
+    __version__ = version("python_skeleton")
 except PackageNotFoundError:
     __version__ = "unknown"
