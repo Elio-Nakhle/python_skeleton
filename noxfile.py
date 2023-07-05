@@ -14,7 +14,7 @@ python_versions = ["3.10"]
 os.environ.update({"PDM_IGNORE_SAVED_PYTHON": "1"})
 
 
-@nox.session(python=python_versions)
+@nox.session(python=python_versions[-1])
 def black(session):
     """Run black code formatter."""
     args = session.posargs or locations
@@ -22,12 +22,28 @@ def black(session):
     session.run("black", *args)
 
 
-@nox.session(python=python_versions)
+@nox.session(python=python_versions[-1])
 def isort(session):
     """Run black code formatter."""
     args = session.posargs or locations
     session.install("isort")
     session.run("isort", *args)
+
+
+@nox.session(python=python_versions[-1])
+def format_docstrings(session):
+    """Run black code formatter."""
+    args = session.posargs or locations
+    session.install("docformatter[tomli]")
+    session.run("docformatter", "--recursive", "--in-place", *args)
+
+
+@nox.session(python=python_versions[-1])
+def eradicate(session):
+    """Run black code formatter."""
+    args = session.posargs or locations
+    session.install("eradicate")
+    session.run("eradicate", "--recursive", "--in-place", *args)
 
 
 @nox.session(python=python_versions)
@@ -49,6 +65,7 @@ def lint(session):
         "flake8-black",
         "flake8-bugbear",
         "flake8-docstrings",
+        "mccabe",
         "darglint",
     )
     session.run("pflake8", *args)
