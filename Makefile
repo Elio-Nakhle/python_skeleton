@@ -4,6 +4,7 @@ clean:
 	rm .coverage || true
 	rm coverage.xml || true
 	rm .pdm-python || true
+	rm -rf .pdm-build || true
 	rm -rf docs/build || true
 	rm -rf .mypy_cache || true
 	rm -rf .nox || true
