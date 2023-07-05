@@ -1,16 +1,17 @@
+.nox/
 .idea/
-
-.pytest_cache
-.python-version
-.nox
-.venv
-.coverage
-.mypy_cache
-.coverage.svg
-.pdm-python
+.venv/
+.mypy_cache/
+.pdm-build/
+.pytest_cache/
 
 __pycache__/
-docs/_build
+docs/_build/
 test-project-venv/
+
+.coverage
+.pdm-python
+.coverage.svg
+.python-version
 
 coverage.xml
