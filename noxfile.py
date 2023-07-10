@@ -58,7 +58,6 @@ def lint(session):
     """Lint using flake8."""
     args = session.posargs or locations
     session.install(
-        "pyproject-flake8",
         "flake8",
         "flake8-bandit",
         "flake8-annotations",
@@ -68,7 +67,7 @@ def lint(session):
         "mccabe",
         "darglint",
     )
-    session.run("pflake8", *args)
+    session.run("flake8", *args)
 
 
 @nox.session(python=python_versions)
