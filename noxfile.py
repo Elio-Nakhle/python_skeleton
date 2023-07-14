@@ -40,7 +40,7 @@ def format_docstrings(session):
 
 @nox.session(python=python_versions[-1])
 def eradicate(session):
-    """Run black code formatter."""
+    """Remove commented out code."""
     args = session.posargs or locations
     session.install("eradicate")
     session.run("eradicate", "--recursive", "--in-place", *args)
